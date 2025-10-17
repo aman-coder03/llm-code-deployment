@@ -1,0 +1,36 @@
+name: Sync to Hugging Face Space
+
+on:
+  push:
+    branches:
+      - main  # Change to 'master' if that's your default branch
+  workflow_dispatch:  # Allows manual triggering from Actions tab
+
+jobs:
+  sync-to-huggingface:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch complete history
+          lfs: true       # Fetch Git LFS files if any
+      
+      - name: Push to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          # Configure git
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          
+          # Your Hugging Face Space details
+          HF_USERNAME="coder0304"
+          SPACE_NAME="TDSproject"
+          
+          # Add Hugging Face remote
+          git remote add huggingface https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME
+          
+          # Force push everything to Hugging Face
+          git push huggingface main:main --force
