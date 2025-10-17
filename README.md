@@ -1,5 +1,10 @@
 # LLM Code Deployment
 
+title: LLM CODE DEPLOYMENT         
+emoji: 🚀                  
+colorFrom: blue            
+colorTo: purple           
+
 ## Overview
 This project is an automated system for building, deploying, updating, and evaluating student projects using **LLM-assisted code generation** and **GitHub Pages**.  
 
